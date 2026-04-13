@@ -4,7 +4,10 @@
 import os
 import sys
 from pathlib import Path
+from dotenv import load_dotenv
 from openai import OpenAI
+
+load_dotenv()
 
 
 class ReportSummarizer:
@@ -27,7 +30,7 @@ class ReportSummarizer:
             model=self.model,
             messages=[
                 {"role": "system", "content": "Create clear, concise executive summaries."},
-                {"role": "user", "content": f"Summarize this in {max_bullets} bullet points:\n\n{content[:5000]"}
+                {"role": "user", "content": f"Summarize this in {max_bullets} bullet points:\n\n{content[:5000]}"}
             ],
             max_tokens=500,
             temperature=0.7
