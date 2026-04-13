@@ -7,6 +7,7 @@ An AI-powered document processing tool that processes PDF and Word documents usi
 - [Prerequisites](#prerequisites)
 - [Setup Instructions](#setup-instructions)
 - [Running the Script](#running-the-script)
+- [Usage Examples](#usage-examples)
 - [Configuration](#configuration)
 - [Project Structure](#project-structure)
 
@@ -92,19 +93,84 @@ OPENAI_API_KEY=your-api-key-here
 
 ## Running the Script
 
-Once setup is complete, run the main script:
+Once setup is complete, activate your virtual environment and run the script. The script accepts PDF, Word (.docx), and text (.txt) files, or runs with sample data if no file is provided.
 
+### Basic Usage
+
+**Run with sample data (demo mode):**
 ```bash
 python3 report_summarizer.py
 ```
 
-Or with your virtual environment activated:
-
+**Summarize a PDF file:**
 ```bash
-(venv) python3 report_summarizer.py
+python3 report_summarizer.py report.pdf
 ```
 
-The script will process your documents and generate the output.
+**Summarize a Word document:**
+```bash
+python3 report_summarizer.py document.docx
+```
+
+**Summarize a text file:**
+```bash
+python3 report_summarizer.py report.txt
+```
+
+### Full Example
+
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Run the script with a PDF
+python3 report_summarizer.py quarterly_report.pdf
+
+# Output will show the AI-generated summary
+```
+
+## Usage Examples
+
+### Example 1: Summarize a PDF Report
+
+```bash
+python3 report_summarizer.py sales_report.pdf
+```
+
+**Output:**
+```
+Summary of sales_report.pdf:
+
+• Q3 revenue increased 15% year-over-year
+• New product launch exceeded expectations by 25%
+• Customer retention improved to 92%
+• Operating costs reduced through automation
+• Market expansion into 3 new regions
+```
+
+### Example 2: Summarize a Word Document
+
+```bash
+python3 report_summarizer.py meeting_notes.docx
+```
+
+The script automatically extracts text from the Word document and generates a summary.
+
+### Example 3: Summarize a Text File
+
+```bash
+python3 report_summarizer.py notes.txt
+```
+
+### Supported File Formats
+
+| Format | Extension | Status |
+|--------|-----------|--------|
+| PDF | `.pdf` | ✅ Supported |
+| Word Document | `.docx` | ✅ Supported |
+| Text File | `.txt` | ✅ Supported |
+
+**Note:** The script automatically detects the file type based on the file extension and uses the appropriate text extraction method.
 
 ---
 
