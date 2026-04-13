@@ -15,7 +15,7 @@ class ReportSummarizer:
     
     def __init__(self, api_key=None, model="gpt-3.5-turbo"):
         self.client = OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
-        self.model = model
+        self.model = modelodel
     
     def read_file(self, file_path):
         """Read text from a file."""
