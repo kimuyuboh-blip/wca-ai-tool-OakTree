@@ -102,7 +102,7 @@ Once setup is complete, activate your virtual environment and run the script. Th
 python3 report_summarizer.py
 ```
 
-**Summarize a PDF file:**
+**Summarize a local PDF file:**
 ```bash
 python3 report_summarizer.py report.pdf
 ```
@@ -114,6 +114,15 @@ python3 report_summarizer.py document.docx
 
 **Summarize a text file:**
 ```bash
+python3 report_summarizer.py report.txt
+```
+
+**Run the exact command in the virtual environment:**
+```bash
+source venv/bin/activate
+python3 report_summarizer.py
+python3 report_summarizer.py report.pdf
+python3 report_summarizer.py document.docx
 python3 report_summarizer.py report.txt
 ```
 
