@@ -1,2 +1,0 @@
-This is a sample text report.
-The script can summarize plain text files too.
