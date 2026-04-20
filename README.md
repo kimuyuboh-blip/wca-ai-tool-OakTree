@@ -1,24 +1,33 @@
-# WCA AI Tool
+# OakTree Report Summarizer
 
-An AI-powered document processing tool that processes PDF and Word documents using OpenAI's API to generate intelligent summaries and analysis.
+A Streamlit web application that analyzes and summarizes PDF and Word documents using OpenAI's GPT-4o API. OakTree intelligently chunks large documents to handle token limits and generates concise, actionable summaries.
 
 ## Table of Contents
 
+- [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Setup Instructions](#setup-instructions)
-- [Running the Script](#running-the-script)
-- [Usage Examples](#usage-examples)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
+- [Running the Application](#running-the-application)
+
+---
+
+## Features
+
+- **Web Interface**: User-friendly Streamlit interface for document uploads
+- **Multi-Format Support**: Accepts PDF and DOCX files
+- **Smart Chunking**: Automatically splits large documents to stay within API token limits
+- **GPT-4o Integration**: Uses advanced AI for accurate, professional summaries
+- **Session Persistence**: Maintains summary results across page interactions
+- **Download Capability**: Save summaries as text files
+- **Error Handling**: Clear error messages for authentication and rate-limit issues
 
 ---
 
 ## Prerequisites
 
-Before getting started, make sure you have the following installed on your system:
+Before getting started, ensure you have:
 
-- **Python 3.7 or higher** - [Download Python](https://www.python.org/downloads/)
-- **Git** - [Download Git](https://git-scm.com/downloads)
+- **Python 3.10 or higher** - [Download Python](https://www.python.org/downloads/)
 - **OpenAI API Key** - Sign up at [OpenAI Platform](https://platform.openai.com/) to get your API key
 
 ---
@@ -27,104 +36,52 @@ Before getting started, make sure you have the following installed on your syste
 
 ### 1. Clone the Repository
 
-First, clone this repository to your local machine:
-
 ```bash
 git clone https://github.com/kimuyuboh-blip/wca-ai-tool-OakTree.git
 cd wca-ai-tool-OakTree
 ```
 
-### 2. Create a Virtual Environment
-
-A virtual environment isolates your project dependencies from other Python projects on your system. Create one using:
-
-```bash
-python3 -m venv venv
-```
-
-This creates a new folder called `venv` in your project directory.
-
-### 3. Activate the Virtual Environment
-
-Activate the virtual environment for your operating system:
+### 2. Create and Activate Virtual Environment
 
 **On macOS/Linux:**
 ```bash
+python3 -m venv venv
 source venv/bin/activate
 ```
 
 **On Windows:**
 ```bash
+python -m venv venv
 venv\Scripts\activate
 ```
 
-You'll know it's activated when you see `(venv)` at the beginning of your terminal prompt.
-
-### 4. Install Dependencies
-
-With the virtual environment activated, install all required packages from `requirements.txt`:
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-This installs all necessary dependencies including:
-- OpenAI SDK for API calls
-- PDF and document processing libraries
-- Environment variable management (.env support)
-
-### 5. Configure Environment Variables
-
-Create a `.env` file in the project root directory with your OpenAI API key:
-
-```bash
-echo "OPENAI_API_KEY=your-api-key-here" > .env
-```
-
-Or manually create a `.env` file and add:
-
-```
-OPENAI_API_KEY=your-api-key-here
-```
-
-**Security Note:** The `.env` file is listed in `.gitignore` and is never committed to Git, keeping your API key safe.
-
 ---
 
-## Running the Script
+## Running the Application
 
-Once setup is complete, activate your virtual environment and run the script. The script accepts PDF, Word (.docx), and text (.txt) files, or runs with sample data if no file is provided.
+With the virtual environment activated, start the Streamlit app:
 
-### Basic Usage
-
-**Run with sample data (demo mode):**
 ```bash
-python3 report_summarizer.py
+streamlit run oakTree.py
 ```
 
-**Summarize a local PDF file:**
-```bash
-python3 report_summarizer.py report.pdf
-```
+The app will open in your browser at `http://localhost:8501`
 
-**Summarize a Word document:**
-```bash
-python3 report_summarizer.py document.docx
-```
+### Usage Steps
 
-**Summarize a text file:**
-```bash
-python3 report_summarizer.py report.txt
-```
-
-**Run the exact command in the virtual environment:**
-```bash
-source venv/bin/activate
-python3 report_summarizer.py
-python3 report_summarizer.py report.pdf
-python3 report_summarizer.py document.docx
-python3 report_summarizer.py report.txt
-```
+1. **Enter API Key**: Paste your OpenAI API key in the sidebar (secure, not stored)
+2. **Upload Document**: Upload a PDF or DOCX file
+3. **Click Summarize**: Click the "Summarize with OakTree" button
+4. **Review Results**: The summary will appear below with options to:
+   - View the formatted summary
+   - Download as a text file
+   - Clear and process another document
 
 ### Full Example
 
@@ -132,80 +89,36 @@ python3 report_summarizer.py report.txt
 # Activate virtual environment
 source venv/bin/activate
 
-# Run the script with a PDF
-python3 report_summarizer.py quarterly_report.pdf
+# Run the Streamlit app
+streamlit run oakTree.py
 
-# Output will show the AI-generated summary
+# Open http://localhost:8501 in your browser
 ```
-
-## Usage Examples
-
-### Example 1: Summarize a PDF Report
-
-```bash
-python3 report_summarizer.py sales_report.pdf
-```
-
-**Output:**
-```
-Summary of sales_report.pdf:
-
-• Q3 revenue increased 15% year-over-year
-• New product launch exceeded expectations by 25%
-• Customer retention improved to 92%
-• Operating costs reduced through automation
-• Market expansion into 3 new regions
-```
-
-### Example 2: Summarize a Word Document
-
-```bash
-python3 report_summarizer.py meeting_notes.docx
-```
-
-The script automatically extracts text from the Word document and generates a summary.
-
-### Example 3: Summarize a Text File
-
-```bash
-python3 report_summarizer.py notes.txt
-```
-
-### Supported File Formats
-
-| Format | Extension | Status |
-|--------|-----------|--------|
-| PDF | `.pdf` | ✅ Supported |
-| Word Document | `.docx` | ✅ Supported |
-| Text File | `.txt` | ✅ Supported |
-
-**Note:** The script automatically detects the file type based on the file extension and uses the appropriate text extraction method.
 
 ---
 
-## Configuration
+## Supported File Formats
 
-### Environment Variables
+- **PDF** - Documents with `.pdf` extension
+- **DOCX** - Word documents with `.docx` extension
 
-The script uses environment variables stored in the `.env` file. These are automatically loaded by the `python-dotenv` package.
+---
 
-**Required:**
-- `OPENAI_API_KEY` - Your OpenAI API key for authentication
+## Troubleshooting
 
-You can add additional configuration variables to the `.env` file as needed.
+### "ModuleNotFoundError"
+Ensure your virtual environment is activated and you've run `pip install -r requirements.txt`.
 
-### .gitignore Explanation
+### "Invalid API Key" Error
+Double-check that your OpenAI API key is correct and entered properly in the sidebar. Your key is not stored—it's only used for the duration of the session.
 
-The `.gitignore` file prevents certain files from being committed to Git. This protects sensitive data:
+### Rate Limit Error
+You've sent too many requests to OpenAI. Wait a moment before processing another document.
 
-```
-.env                 # Keeps your API key secure
-__pycache__/         # Python cache files (system-generated)
-*.pyc                # Compiled Python files
-venv/                # Virtual environment (not needed in git)
-.vscode/             # VS Code settings (optional)
-*.egg-info/          # Egg metadata files
-dist/ & build/       # Distribution artifacts
+### Port Already in Use
+If port 8501 is already in use, run:
+```bash
+streamlit run oakTree.py --server.port 8502
 ```
 
 ---
@@ -214,41 +127,9 @@ dist/ & build/       # Distribution artifacts
 
 ```
 wca-ai-tool-OakTree/
-├── venv/                    # Virtual environment (ignored in git)
-├── .env                     # Environment variables (ignored in git)
-├── .gitignore               # Git ignore rules
-├── README.md                # This file
+├── venv/                    # Virtual environment
+├── oakTree.py               # Main Streamlit application
 ├── requirements.txt         # Python dependencies
-└── report_summarizer.py     # Main script that processes documents
+├── README.md                # This file explains everything
+
 ```
-
----
-
-## Troubleshooting
-
-### "Command not found: python3"
-Make sure Python is installed and added to your PATH. Check with `python --version`.
-
-### "ModuleNotFoundError"
-Ensure your virtual environment is activated and you've run `pip install -r requirements.txt`.
-
-### "API Key not found"
-Verify that your `.env` file exists in the project root and contains your `OPENAI_API_KEY`.
-
-### Permission denied on venv/bin/activate
-On macOS/Linux, you may need to make the script executable:
-```bash
-chmod +x venv/bin/activate
-```
-
----
-
-## Deactivating the Virtual Environment
-
-When finished working on the project, deactivate the virtual environment:
-
-```bash
-deactivate
-```
-
-Your terminal prompt will return to normal.
