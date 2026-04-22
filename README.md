@@ -133,3 +133,7 @@ wca-ai-tool-OakTree/
 ├── README.md                # This file explains everything
 
 ```
+I developed API Integration for Report Summarizer designed to automate the process of extracting key insights from uploaded reports and generating concise summaries using AI. The project involved connecting a frontend upload interface to a backend service that processes PDF and text documents, extracts the content, and sends it to an AI model API such as OpenAI for summarization.
+My role included designing the workflow, writing the backend logic, handling file uploads, and integrating the external AI API. I also implemented response handling so the summarized output could be displayed clearly to users.
+The code was written in a clean and modular way using Python (Flask/FastAPI). Error handling was added for failed uploads, invalid files, and API rate limits. Security measures like API key protection through environment variables were also included.
+The final system allowed users to upload reports and receive fast, readable summaries within seconds, improving productivity and reducing manual reading time. This project strengthened my skills in REST API integration, backend development, prompt engineering, file handling, and AI-powered automation.
