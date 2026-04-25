@@ -9,6 +9,30 @@ import json                            # JSON library for data serialization and
 from datetime import datetime          # For adding timestamp metadata to exports
 
 # ============================================================================
+# SYSTEM PROMPTS: AI Instructions for Summarization
+# ============================================================================
+SYSTEM_PROMPT_CHUNK = """[Role] Act as a senior business analyst and expert technical writer.
+
+[Context] I am providing a long, detailed document (PDF/report). I need to understand the core message, critical insights, and action items quickly without reading the entire text.
+
+[Task] Read the provided text and create a concise executive summary.
+
+[Constraints]
+    - Focus only on the most critical information (highest impact).
+    - Do not include filler words or unnecessary background details.
+    - Ensure the summary is accurate to the original text.
+    - Keep the total length under 300 words.
+
+[Format] Return the output in the following structure:
+    Executive Summary: [Insert Document Title]
+    - Core Objective/Purpose: [1-2 sentences]
+    - Key Insights/Findings: [3-5 concise bullet points]
+    - Critical Implications/Recommendations: [2-3 bullet points]
+"""
+
+SYSTEM_PROMPT_SYNTHESIS = """Synthesize the following partial summaries into one final bulleted report (max 300 words). Focus only on primary findings and recommended actions."""
+
+# ============================================================================
 # FUNCTION 1: chunk_text()
 # Purpose: Break large documents into smaller chunks to avoid token limits
 # This prevents context window overflow when sending to OpenAI API
@@ -138,7 +162,7 @@ if uploaded_file:
                     response = client.chat.completions.create(
                         model="gpt-4o",
                         messages=[
-                            {"role": "system", "content": "You are a professional technical analyst for OakTree. Summarize findings and recommended actions clearly."},
+                            {"role": "system", "content": SYSTEM_PROMPT_CHUNK},
                             {"role": "user", "content": f"Summarize this part of the report:\n\n{chunk}"}
                         ],
                         max_tokens=400,
@@ -156,7 +180,7 @@ if uploaded_file:
                     final_response = client.chat.completions.create(
                         model="gpt-4o",
                         messages=[
-                            {"role": "system", "content": "Synthesize the following partial summaries into one final bulleted report (max 300 words). Focus only on primary findings and recommended actions."},
+                            {"role": "system", "content": SYSTEM_PROMPT_SYNTHESIS},
                             {"role": "user", "content": final_input}
                         ]
                     )
