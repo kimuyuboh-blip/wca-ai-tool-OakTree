@@ -8,6 +8,7 @@ A Streamlit web application that analyzes and summarizes PDF and Word documents 
 - [Prerequisites](#prerequisites)
 - [Setup Instructions](#setup-instructions)
 - [Running the Application](#running-the-application)
+- [Contributors](#contributors)
 
 ---
 
@@ -71,6 +72,12 @@ With the virtual environment activated, start the Streamlit app:
 streamlit run oakTree.py
 ```
 
+**If the above command doesn't work**, try using Python's module invocation:
+
+```bash
+python -m streamlit run oakTree.py
+```
+
 The app will open in your browser at `http://localhost:8501`
 
 ### Usage Steps
@@ -120,6 +127,18 @@ If port 8501 is already in use, run:
 ```bash
 streamlit run oakTree.py --server.port 8502
 ```
+
+---
+
+## Contributors
+
+- [Kimuyu Carlos](https://github.com/kimuyuboh-blip)
+- [Favour Azu](https://github.com/favour299)
+- [Loise Owoko](https://github.com/Loise-Owoko)
+- [Eugene Kiprono](https://github.com/euginesky2)
+- [Rose Kariuki](https://github.com/wanjirurosek-arch)
+
+
 
 ---
 
