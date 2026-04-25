@@ -165,17 +165,14 @@ To modify the prompts, edit the `SYSTEM_PROMPT_CHUNK` and `SYSTEM_PROMPT_SYNTHES
 - **Role/Persona**: Customize the analyst role for domain-specific needs
 - **Temperature**: Adjust `temperature=0.3` in the API calls (lower = more consistent, higher = more creative)
 
-# Open http://localhost:8501 in your browser
 ```
 
----
 
 ## Supported File Formats
 
 - **PDF** - Documents with `.pdf` extension
 - **DOCX** - Word documents with `.docx` extension
 
----
 
 ## Troubleshooting
 
