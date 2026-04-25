@@ -98,6 +98,72 @@ source venv/bin/activate
 
 # Run the Streamlit app
 streamlit run oakTree.py
+```
+
+---
+
+## AI Prompt Design
+
+### Overview
+
+OakTree uses a carefully designed two-stage prompt system to ensure high-quality, actionable summaries from complex documents. The prompts are engineered to balance brevity with comprehensiveness.
+
+### Prompt Architecture
+
+#### Stage 1: Chunk Summarization (`SYSTEM_PROMPT_CHUNK`)
+
+```
+[Role] Act as a senior business analyst and expert technical writer.
+
+[Context] I am providing a long, detailed document (PDF/report). I need to understand the core message, critical insights, and action items quickly without reading the entire text.
+
+[Task] Read the provided text and create a concise executive summary.
+
+[Constraints]
+    - Focus only on the most critical information (highest impact).
+    - Do not include filler words or unnecessary background details.
+    - Ensure the summary is accurate to the original text.
+    - Keep the total length under 300 words.
+
+[Format] Return the output in the following structure:
+    Executive Summary: [Insert Document Title]
+    - Core Objective/Purpose: [1-2 sentences]
+    - Key Insights/Findings: [3-5 concise bullet points]
+    - Critical Implications/Recommendations: [2-3 bullet points]
+```
+
+**Design Choices:**
+- **Role Definition**: Positions the AI as a domain expert (business analyst + technical writer) to encourage professional, structured output
+- **Context Framing**: Establishes the user's pain point (time constraints) to create urgency and focus
+- **Constraints Section**: Prevents hallucination and verbosity by setting explicit rules
+- **Format Structure**: Uses a clear template with bullet points to ensure parsing-friendly, scannable output
+- **Word Limit (300 words)**: Balances detail with conciseness for executive audiences
+
+#### Stage 2: Synthesis (`SYSTEM_PROMPT_SYNTHESIS`)
+
+```
+Synthesize the following partial summaries into one final bulleted report (max 300 words). Focus only on primary findings and recommended actions.
+```
+
+**Design Choices:**
+- **Concise Instruction**: For multi-chunk documents, this prompt consolidates multiple summaries without redundancy
+- **Focus on Output**: Prioritizes actionable insights over background information
+- **Word Limit**: Maintains the same 300-word constraint for consistency
+
+### Why Two-Stage Summarization?
+
+1. **Token Efficiency**: Breaks large documents into manageable chunks (max 12,000 characters per chunk) to avoid OpenAI's token limits
+2. **Quality Control**: Processes each section independently to maintain accuracy before synthesis
+3. **Scalability**: Handles documents of any length without quality degradation
+4. **Cost Optimization**: Reduces unnecessary API calls through intelligent chunking
+
+### Customization
+
+To modify the prompts, edit the `SYSTEM_PROMPT_CHUNK` and `SYSTEM_PROMPT_SYNTHESIS` variables at the top of `oakTree.py`. Key adjustable parameters:
+- **Word limit**: Change the "under 300 words" constraint
+- **Output format**: Adjust bullet points, sections, or structure
+- **Role/Persona**: Customize the analyst role for domain-specific needs
+- **Temperature**: Adjust `temperature=0.3` in the API calls (lower = more consistent, higher = more creative)
 
 # Open http://localhost:8501 in your browser
 ```
