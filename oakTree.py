@@ -5,6 +5,8 @@ import streamlit as st                  # Web app framework for building UI
 from openai import OpenAI              # OpenAI API client for GPT models
 from pypdf import PdfReader            # Library to extract text from PDF files
 from docx import Document              # Library to extract text from Word documents
+import json                            # JSON library for data serialization and formatting
+from datetime import datetime          # For adding timestamp metadata to exports
 
 # ============================================================================
 # FUNCTION 1: chunk_text()
@@ -36,6 +38,24 @@ def extract_text(uploaded_file):
         for para in doc.paragraphs:
             text += para.text + "\n"
     return text
+
+# ============================================================================
+# FUNCTION 3: format_summary_as_json()
+# Purpose: Convert summary text to structured JSON format with metadata
+# Useful for integration with other systems or APIs
+# ============================================================================
+def format_summary_as_json(summary, filename="report"):
+    """Convert summary to JSON format with metadata."""
+    json_data = {
+        "metadata": {
+            "tool": "OakTree Report Summarizer",
+            "version": "1.0",
+            "timestamp": datetime.now().isoformat(),
+            "source_file": filename
+        },
+        "summary": summary
+    }
+    return json.dumps(json_data, indent=2)
 
 
 # ============================================================================
@@ -176,19 +196,29 @@ if st.session_state.summary:
     # ACTION BUTTONS (Download & Clear)
     # Purpose: Provide user options to save or reset the summarization
     # ========================================================================
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     
     # Download button: Allows user to save summary as text file
     with col1:
         st.download_button(
-            label="Download Summary",
+            label="Download as Text",
             data=st.session_state.summary,
             file_name="OakTree_Summary.txt",
-            mime="text/plain"
+            mime="application/text"
+        )
+    
+    # Download button: Allows user to save summary as JSON file
+    with col2:
+        json_data = format_summary_as_json(st.session_state.summary, uploaded_file.name)
+        st.download_button(
+            label="Download as JSON",
+            data=json_data,
+            file_name="OakTree_Summary.json",
+            mime="application/json"
         )
     
     # Clear button: Resets the app to allow processing a new document
-    with col2:
+    with col3:
         if st.button("Clear Results"):
             st.session_state.summary = ""
             # Rerun the app to refresh the UI
