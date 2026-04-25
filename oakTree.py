@@ -208,14 +208,6 @@ if st.session_state.summary:
         )
     
     # Download button: Allows user to save summary as JSON file
-    with col2:
-        json_data = format_summary_as_json(st.session_state.summary, uploaded_file.name)
-        st.download_button(
-            label="Download as JSON",
-            data=json_data,
-            file_name="OakTree_Summary.json",
-            mime="application/json"
-        )
     
     # Clear button: Resets the app to allow processing a new document
     with col3:
